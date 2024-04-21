@@ -1,0 +1,59 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * romirami implementation : © Guillaume Benny bennygui@gmail.com
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ */
+
+.rr-icon {
+    position: relative;
+    transition: transform 300ms, margin 300ms;
+
+    width: calc(#{$icon-width}px * var(--rr-zoom));
+    height: calc(#{$icon-height}px * var(--rr-zoom));
+    image-rendering: -webkit-optimize-contrast;
+    filter: drop-shadow(0px 0px 1px black);
+
+    // Remove shadow on iOS
+    .bx-browser-is-ios & {
+        filter: none;
+    }
+
+    .rr-card-detail-desc &,
+    #page-title &,
+    #replaylogs,
+    #logs & {
+        display: inline-block;
+        --rr-zoom: 0.35;
+        width: calc(#{$icon-width * 0.5}px * var(--rr-zoom));
+    }
+}
+
+// icon
+@mixin mixin-rr-icon($nb-row, $nb-col, $x, $y) {
+    .rr-icon.rr-icon-#{$x}-#{$y} {
+        background-image: url('img/icon.png');
+        background-position-x: calc(#{-1 * $x * $icon-width}px * var(--rr-zoom));
+        background-position-y: calc(#{-1 * $y * $icon-height}px * var(--rr-zoom));
+        background-size: calc(#{$icon-width * $nb-col}px * var(--rr-zoom)) calc(#{$icon-height * $nb-row}px * var(--rr-zoom));
+
+        .rr-card-detail-desc &,
+        #page-title &,
+        #replaylogs,
+        #logs & {
+            background-position-x: calc(#{-1 * $x * $icon-width - $icon-width * 0.25}px * var(--rr-zoom));
+        }
+    }
+}
+
+@include mixin-rr-icon(2, 4, 0, 0);
+@include mixin-rr-icon(2, 4, 0, 1);
+@include mixin-rr-icon(2, 4, 1, 0);
+@include mixin-rr-icon(2, 4, 1, 1);
+@include mixin-rr-icon(2, 4, 2, 0);
+@include mixin-rr-icon(2, 4, 2, 1);
+@include mixin-rr-icon(2, 4, 3, 0);
+@include mixin-rr-icon(2, 4, 3, 1);

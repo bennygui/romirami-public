@@ -1,0 +1,67 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * romirami implementation : © Guillaume Benny bennygui@gmail.com
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ */
+
+.rr-token {
+    position: relative;
+    transition: transform 300ms, margin 300ms, opacity 300ms;
+
+    width: calc(150px * var(--rr-zoom) * var(--rr-token-zoom));
+
+    image-rendering: -webkit-optimize-contrast;
+    background-image: url('img/token.png');
+    background-position-x: 0px;
+    background-position-y: 0px;
+    background-size: calc(450px * var(--rr-zoom) * var(--rr-token-zoom)) calc(296px * var(--rr-zoom) * var(--rr-token-zoom));
+    filter: drop-shadow(0px 0px 1px black);
+
+    // Remove shadow on iOS
+    .bx-browser-is-ios & {
+        filter: none;
+    }
+
+    &.rr-token-used {
+        transform: scale(0.01);
+        opacity: 0;
+    }
+
+    #page-title & {
+        display: inline-block;
+        --rr-token-zoom: 0.35;
+    }
+
+    #replaylogs,
+    #logs & {
+        display: inline-block;
+        --rr-token-zoom: 0.7;
+    }
+}
+
+.rr-token.rr-token-first-player {
+    height: calc(296px * var(--rr-zoom) * var(--rr-token-zoom));
+    background-position-x: 0px;
+}
+
+.rr-token.rr-token-star {
+    height: calc(143px * var(--rr-zoom) * var(--rr-token-zoom));
+    background-position-x: calc(-150px * var(--rr-zoom) * var(--rr-token-zoom));
+    transform: rotate(342deg);
+
+    &.bx-selected {
+        background-position-x: calc(-300px * var(--rr-zoom) * var(--rr-token-zoom));
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    &.bx-selected.bx-border {
+        background-position-x: calc(-300px * var(--rr-zoom) * var(--rr-token-zoom));
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}

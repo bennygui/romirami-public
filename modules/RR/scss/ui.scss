@@ -1,0 +1,41 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * romirami implementation : © Guillaume Benny bennygui@gmail.com
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ */
+
+.rr-ui {
+    position: relative;
+    transition: transform 300ms, margin 300ms;
+
+    width: calc(#{$ui-width}px * var(--rr-zoom));
+    height: calc(#{$ui-height}px * var(--rr-zoom));
+    image-rendering: -webkit-optimize-contrast;
+    filter: drop-shadow(0px 0px 1px black);
+
+    // Remove shadow on iOS
+    .bx-browser-is-ios & {
+        filter: none;
+    }
+}
+
+// UI
+@mixin mixin-rr-ui($nb-row, $nb-col, $x, $y, $ui-name) {
+    .rr-ui.rr-ui-#{$ui-name} {
+        background-image: url('img/ui.png');
+        background-position-x: calc(#{-1 * $x * $ui-width}px * var(--rr-zoom));
+        background-position-y: calc(#{-1 * $y * $ui-height}px * var(--rr-zoom));
+        background-size: calc(#{$ui-width * $nb-col}px * var(--rr-zoom)) calc(#{$ui-height * $nb-row}px * var(--rr-zoom));
+    }
+}
+
+@include mixin-rr-ui(1, 6, 0, 0, 'contract');
+@include mixin-rr-ui(1, 6, 1, 0, 'sort-draw');
+@include mixin-rr-ui(1, 6, 2, 0, 'sort-kind');
+@include mixin-rr-ui(1, 6, 3, 0, 'number');
+@include mixin-rr-ui(1, 6, 4, 0, 'sort-sequence');
+@include mixin-rr-ui(1, 6, 5, 0, 'sort-suit');

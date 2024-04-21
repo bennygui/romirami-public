@@ -1,0 +1,125 @@
+/**
+ *------
+ * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
+ * romirami implementation : © Guillaume Benny bennygui@gmail.com
+ *
+ * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
+ * See http://en.boardgamearena.com/#!doc/Studio for more information.
+ * -----
+ */
+
+.rr-card {
+    position: relative;
+    transition: transform 300ms, margin 300ms;
+
+    width: calc(#{$card-width}px * var(--rr-zoom) * var(--rr-deck-zoom));
+    height: calc(#{$card-height}px * var(--rr-zoom) * var(--rr-deck-zoom));
+    border-radius: calc(20px * var(--rr-zoom) * var(--rr-deck-zoom));
+    box-shadow: 0px 0px 3px black;
+    image-rendering: -webkit-optimize-contrast;
+
+    &.rr-valid-contract {
+        transform: rotate(5deg);
+    }
+
+    &.rr-suit-bonus-empty {
+        opacity: 0.3;
+    }
+
+    .rr-token.rr-token-star {
+        --rr-token-zoom: 0.5;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        margin: 10px;
+        opacity: 0;
+        transform: rotate(0deg) scale(0.01);
+    }
+
+    &.rr-valid-contract-star .rr-token.rr-token-star {
+        opacity: 1;
+        transform: rotate(-342deg);
+    }
+}
+
+.rr-contract-help {
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    background-color: #144364;
+    border: 1px solid #08283e;
+    border-radius: 5px;
+    cursor: pointer;
+    vertical-align: middle;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 12px;
+    box-shadow: 0 1px 0 #000;
+    z-index: 1;
+    display: none;
+
+    &::after {
+        content: "?";
+    }
+
+    .rr-contract-help-visible &,
+    .rr-card-row & {
+        display: block;
+    }
+
+    .rr-contract-help-invisible.rr-contract-help-invisible.rr-contract-help-invisible & {
+        display: none;
+    }
+
+    .bx-moving & {
+        display: none;
+    }
+}
+
+// Cards
+@mixin mixin-rr-card($image-file, $nb-row, $nb-col, $x, $y, $card-id) {
+    .rr-card[data-card-id="#{$card-id}"] {
+        background-image: url('img/card_#{$image-file}.jpg');
+        background-position-x: calc(#{-1 * $x * $card-width}px * var(--rr-zoom) * var(--rr-deck-zoom));
+        background-position-y: calc(#{-1 * $y * $card-height}px * var(--rr-zoom) * var(--rr-deck-zoom));
+        background-size: calc(#{$card-width * $nb-col}px * var(--rr-zoom) * var(--rr-deck-zoom)) calc(#{$card-height * $nb-row}px * var(--rr-zoom) * var(--rr-deck-zoom));
+    }
+}
+
+// Number
+@for $number from 1 through 5 {
+    @for $suit from 1 through 4 {
+        @for $id from 0 through 4 {
+            @include mixin-rr-card('number', 6, 4, $suit - 1, $number - 1, 1000 + $number * 100 + $suit * 10 + $id);
+        }
+    }
+}
+
+// Number back
+@include mixin-rr-card('number', 6, 4, 0, 5, 1999);
+
+// Contract
+@for $y from 0 through 4 {
+    @for $x from 0 through 7 {
+        @include mixin-rr-card('contract', 5, 8, $x, $y, 2000 + $y*8 + $x + 1);
+    }
+}
+
+// Contract back
+@include mixin-rr-card('contract', 5, 8, 4, 4, 2999);
+
+.rr-card-and-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .rr-card-detail-desc {
+        padding: 10px;
+
+        .rr-icon {
+            vertical-align: top;
+        }
+    }
+}
