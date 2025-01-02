@@ -48,13 +48,13 @@ class view_romirami_romirami extends game_view
 
   public function build_page($viewArgs)
   {
-    $this->tpl['ZOOM_AUTO'] = $this->_('Automatic Zoom');
-    $this->tpl['ZOOM_MANUAL'] = $this->_('Manual Zoom');
-    $this->tpl['SHORTCUTS'] = $this->_('Shortcuts');
-    $this->tpl['BACKGROUND_DARK'] = $this->_('Dark Background');
-    $this->tpl['CONFIRM'] = $this->_('Confirm Actions');
-    $this->tpl['COMPACT'] = $this->_('Compact Contracts');
-    $this->tpl['CONTRACT_HELP'] = $this->_('Contract Help');
+    $this->tpl['ZOOM_AUTO'] = self::_('Automatic Zoom');
+    $this->tpl['ZOOM_MANUAL'] = self::_('Manual Zoom');
+    $this->tpl['SHORTCUTS'] = self::_('Shortcuts');
+    $this->tpl['BACKGROUND_DARK'] = self::_('Dark Background');
+    $this->tpl['CONFIRM'] = self::_('Confirm Actions');
+    $this->tpl['COMPACT'] = self::_('Compact Contracts');
+    $this->tpl['CONTRACT_HELP'] = self::_('Contract Help');
 
 
     $currentPlayerId = $this->game->currentPlayerId();
